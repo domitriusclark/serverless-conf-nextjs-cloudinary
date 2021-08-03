@@ -27,11 +27,6 @@ export default function ContentBox({ blog }) {
             </Heading>
             <Text pb="0.5rem">{description}</Text>
           </Box>
-          <Stack direction="row" spacing={3}>
-            {tags.map((tag) => (
-              <Tag key={tag}>#{tag}</Tag>
-            ))}
-          </Stack>
         </Stack>
       </Box>
     </Link>

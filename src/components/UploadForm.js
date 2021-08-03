@@ -9,6 +9,7 @@ export default function UploadForm() {
   const [image, setImage] = React.useState();
 
   function onChange(event) {
+    setPublicId(event.target.files[0].name);
     setFileToUpload({
       file: event.target.files[0],
       preview: URL.createObjectURL(event.target.files[0]),
@@ -29,6 +30,7 @@ export default function UploadForm() {
     })
       .then((resp) => resp.json())
       .then((result) => {
+        console.log(result);
         setStatus('idle');
         setImage(result);
       })
@@ -52,6 +54,7 @@ export default function UploadForm() {
           size="sm"
           fontSize="sm"
           placeholder="Title"
+          value={publicId}
           onChange={(e) => setPublicId(e.target.value)}
         />
       </Stack>
