@@ -1,9 +1,9 @@
-import { Chakra } from '@components/Chakra';
+import { ChakraProvider } from '@chakra-ui/react';
 import { DefaultSeo } from 'next-seo';
 
-const App = ({ Component, pageProps, cookies }) => {
+const App = ({ Component, pageProps }) => {
   return (
-    <Chakra cookies={cookies}>
+    <ChakraProvider resetCSS>
       <DefaultSeo
         title="MDNext Blog Starter"
         description="Build your blog with best in class tools from the NextJS ecosystem. "
@@ -16,10 +16,8 @@ const App = ({ Component, pageProps, cookies }) => {
         }}
       />
       <Component {...pageProps} />
-    </Chakra>
+    </ChakraProvider>
   );
 };
 
 export default App;
-
-export { getServerSideProps } from '@components/Chakra';

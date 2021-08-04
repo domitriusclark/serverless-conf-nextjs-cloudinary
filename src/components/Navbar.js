@@ -1,12 +1,14 @@
 import { Flex, Text, Box, Link } from '@chakra-ui/react';
 import ThemeTogglebutton from '@components/ThemeToggleButton';
-import { Link as NextLink } from 'next/link';
+import NextLink from 'next/link';
 
-function NavLink({ children, ...props }) {
+function NavLink({ children, href, ...props }) {
   return (
-    <Link as={NextLink} px={2} {...props}>
-      {children}
-    </Link>
+    <NextLink href={href} passHref>
+      <Link px={2} {...props}>
+        {children}
+      </Link>
+    </NextLink>
   );
 }
 
