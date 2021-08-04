@@ -5,9 +5,9 @@ import { buildImageUrl } from 'cloudinary-build-url';
 import cleanText from '@utils/cleanText';
 
 export default function Index() {
-  const title = cleanText('Servlerless Conf');
-  const date = cleanText('08/21');
-  const tags = cleanText('#serverless #cloudinary');
+  const title = 'Servlerless Conf';
+  const date = '08/21';
+  const tags = '#serverless #cloudinary';
 
   const url = buildImageUrl('og-images/serverless-conf-og', {
     cloud: {
@@ -19,19 +19,19 @@ export default function Index() {
         {
           gravity: 'center',
           y: '-100',
-          overlay: `text:Arial_90:${title}`,
+          overlay: `text:Arial_90:${cleanText(title)}`,
         },
         {
           gravity: 'north_east',
           y: 20,
           x: 20,
-          overlay: `text:Arial_40:${date}`,
+          overlay: `text:Arial_40:${cleanText(date)}`,
         },
         {
           gravity: 'south_east',
           y: 10,
           x: 20,
-          overlay: `text:Arial_40:${tags}`,
+          overlay: `text:Arial_40:${cleanText(tags)}`,
         },
       ],
     },
