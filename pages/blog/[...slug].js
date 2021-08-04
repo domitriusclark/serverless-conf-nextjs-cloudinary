@@ -4,8 +4,10 @@ import { getMdxContent } from '@utils/get-mdx-content';
 import components from '@components/MDXComponents';
 import { Box, Heading } from '@chakra-ui/react';
 import { Layout } from '@components/Layout';
+import { buildImageUrl } from 'cloudinary-build-url';
+import cleanText from '@utils/cleanText';
 
-export default function BlogPost({ mdxSource, frontMatter }) {
+export default function BlogPost({ mdxSource, frontMatter, og }) {
   const content = hydrate(mdxSource, { components });
   const { title, description } = frontMatter;
 
@@ -16,6 +18,13 @@ export default function BlogPost({ mdxSource, frontMatter }) {
       openGraph={{
         title,
         url: `http://localhost:3001/blog/example`,
+        images: [
+          {
+            url: og,
+            height: 630,
+            width: 1200,
+          },
+        ],
       }}
       twitter={{
         title,
@@ -55,10 +64,39 @@ export async function getStaticProps({ params: { slug } }) {
     console.warn(`No content found for slug ${postSlug}`);
   }
 
+  const url = buildImageUrl('og-images/serverless-conf-og', {
+    cloud: {
+      cloudName: 'mdnextjs',
+    },
+    transformations: {
+      // Define our title layer
+      chaining: [
+        {
+          gravity: 'center',
+          y: '-100',
+          overlay: `text:Arial_90:${cleanText(post.data.title)}`,
+        },
+        {
+          gravity: 'north_east',
+          y: 20,
+          x: 20,
+          overlay: `text:Arial_40:${cleanText(post.data.date)}`,
+        },
+        {
+          gravity: 'south_east',
+          y: 10,
+          x: 20,
+          overlay: `text:Arial_40:${cleanText(post.data.tags)}`,
+        },
+      ],
+    },
+  });
+
   return {
     props: {
       mdxSource: post.mdx,
       frontMatter: post.data,
+      og: url,
     },
   };
 }
